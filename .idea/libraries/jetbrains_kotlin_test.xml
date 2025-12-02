@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="jetbrains.kotlin.test" type="repository">
+    <properties maven-id="org.jetbrains.kotlin:kotlin-test:2.0.20-RC" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-test/2.0.20-RC/kotlin-test-2.0.20-RC.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib/2.0.20-RC/kotlin-stdlib-2.0.20-RC.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/13.0/annotations-13.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

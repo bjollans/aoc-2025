@@ -12,7 +12,7 @@ class IdRange (var start: Long, var end: Long) {
         return true
     }
 
-    fun findInvalidIds(): List<Long> {
+    fun findInvalidIdsTwoRepeatsOnly(): List<Long> {
         val invalidIds = mutableListOf<Long>()
         for (id in range) {
             val idStr = id.toString()
@@ -23,4 +23,6 @@ class IdRange (var start: Long, var end: Long) {
         }
         return invalidIds.toList()
     }
+
+
 }

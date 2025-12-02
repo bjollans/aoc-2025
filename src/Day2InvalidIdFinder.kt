@@ -6,7 +6,7 @@ class Day2InvalidIdFinder : Runnable {
             .map { IdRange(start = it[0].toLong(), end = it[1].toLong()) }
             .toList()
         val combinedRanges = combineRanges(ranges)
-        val invalidIds = combinedRanges.flatMap { it.findInvalidIds() }.toSet().toList()
+        val invalidIds = combinedRanges.flatMap { it.range.filter { num -> isInvalid(num) } }.toSet().toList()
         val invalidIdSum = invalidIds.sum()
         println("${invalidIds.size} invalid IDs have sum of $invalidIdSum")
     }
@@ -28,5 +28,18 @@ class Day2InvalidIdFinder : Runnable {
             }
         }
         return result.toList()
+    }
+
+    fun isInvalid(num: Long): Boolean {
+        val numStr = num.toString()
+        for (i in 1 .. (numStr.length/2)) {
+            val amountOfCopies: Int = numStr.length/i
+            if (amountOfCopies * i != numStr.length) continue
+            val first = numStr.take(i)
+            if (numStr.replace(first, "").isEmpty()){
+                return true
+            }
+        }
+        return false
     }
 }
