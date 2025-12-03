@@ -1,15 +1,19 @@
 class Day3JoltageProcessor: Runnable {
     override fun run() {
         val batteryPacks = getLinesForDay("03", false)
-        val joltageSum = batteryPacks.map { maxJoltage(it) }.sum()
+        val joltageSum = batteryPacks.sumOf { maxJoltage(it, 12) }
         println("Got sum of max joltages $joltageSum")
     }
 
-    fun maxJoltage(batteryPack: String): Int {
-        val batteryPackList = batteryPackStrToIntList(batteryPack)
-        val firstDigit = batteryPackList.dropLast(1).max()
-        val secondDigit = batteryPackList.drop(batteryPackList.indexOf(firstDigit) + 1).max()
-        return 10 * firstDigit + secondDigit
+    fun maxJoltage(batteryPack: String, batteryAmount: Int): Long {
+        var batteryPackList = batteryPackStrToIntList(batteryPack)
+        val digits = mutableListOf<Int>()
+        for (i in batteryAmount-1 downTo 0) {
+            val nextDigit = batteryPackList.dropLast(i).max()
+            digits.add(nextDigit)
+            batteryPackList = batteryPackList.drop(batteryPackList.indexOf(digits.last()) + 1)
+        }
+        return digits.joinToString("") { it.toString() }.toLong()
     }
 
     fun batteryPackStrToIntList(batteryPack: String): List<Int> {
