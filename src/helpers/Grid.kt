@@ -31,11 +31,11 @@ class Grid(inputLines: List<String>) {
 
     fun getAtCoordinate(x: Int, y: Int): GridElement? = gridElements.getOrNull(y)?.getOrNull(x)
 
-    fun countNeighbours(contentCondition: Char, neighbourContentCondition: Char): List<Int> {
+    fun getWithNeighbourCount(contentCondition: Char, neighbourContentCondition: Char, maxCount: Int): List<GridElement> {
         return gridElements.flatten()
             .filter { it.content == contentCondition }
-            .map { it.neighbours.values.count { n -> n?.content == neighbourContentCondition } }
+            .filter { it.neighbours.values.count { n -> n?.content == neighbourContentCondition } < maxCount }
     }
 }
 
-class GridElement(val content: Char, var neighbours: Map<Direction, GridElement?>)
+class GridElement(var content: Char, var neighbours: Map<Direction, GridElement?>)
