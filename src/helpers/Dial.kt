@@ -1,5 +1,7 @@
+package helpers
+
 class Dial(val size: Int, val importantLocation: Int, val initialPos: Int) {
-    var pos = initialPos;
+    var pos = initialPos
     var importantLocationMeets = 0
     var importantLocationPasses = 0
 
@@ -28,7 +30,7 @@ class Dial(val size: Int, val importantLocation: Int, val initialPos: Int) {
     fun rotateSlowly(rotation: String) {
         val direction = rotation.first()
         val amount = rotation.drop(1).toInt()
-        for (i in 0..amount-1){
+        for (i in 0..<amount){
             when(direction) {
                 'L' -> pos--
                 'R' -> pos++

@@ -1,3 +1,5 @@
+package helpers
+
 import java.io.File
 
 fun getLinesForDay(day: String, test: Boolean): List<String> {

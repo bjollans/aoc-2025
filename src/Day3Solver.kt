@@ -1,4 +1,6 @@
-class Day3JoltageProcessor: Runnable {
+import helpers.getLinesForDay
+
+class Day3Solver: Runnable {
     override fun run() {
         val batteryPacks = getLinesForDay("03", false)
         val joltageSum = batteryPacks.sumOf { maxJoltage(it, 12) }

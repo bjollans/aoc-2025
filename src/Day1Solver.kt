@@ -1,4 +1,7 @@
-class Day1PasswordGetter : Runnable {
+import helpers.Dial
+import helpers.getLinesForDay
+
+class Day1Solver : Runnable {
     override fun run() {
         val dial = Dial(size = 100, importantLocation = 0, initialPos = 50)
         val rotations = getLinesForDay("01", false)

@@ -1,4 +1,7 @@
-class Day2InvalidIdFinder : Runnable {
+import helpers.IdRange
+import helpers.getLinesForDay
+
+class Day2Solver : Runnable {
     override fun run() {
         val rangeStrs = getLinesForDay("02", false)
         val ranges = rangeStrs[0].split(",")

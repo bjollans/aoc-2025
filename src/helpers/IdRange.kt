@@ -1,3 +1,5 @@
+package helpers
+
 class IdRange (var start: Long, var end: Long) {
     val range = start..end
 
