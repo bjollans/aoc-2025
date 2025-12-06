@@ -11,6 +11,7 @@ class Day5Solver : Runnable {
                 .toList())
         val ingredients = lines.filter { !it.contains("-") }.map { it.toLong() }
         val spoiledCount = ingredients.count { it in ranges }
-        println("Found $spoiledCount fresh")
+        val freshAmount = ranges.ranges.sumOf { it.last - it.first + 1 }
+        println("Found $spoiledCount fresh with total of $freshAmount possible fresh")
     }
 }

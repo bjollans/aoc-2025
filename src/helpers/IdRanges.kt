@@ -1,6 +1,7 @@
 package helpers
 
-import kotlin.collections.zipWithNext
+import kotlin.math.max
+import kotlin.math.min
 
 class IdRanges(var inputRanges: List<LongRange>) {
     val ranges: List<LongRange>
@@ -22,20 +23,31 @@ class IdRanges(var inputRanges: List<LongRange>) {
         return false
     }
 
+    private fun rangesOverlap(range1: LongRange, range2: LongRange): Boolean {
+        val overlapsWithRange1Larger = range1.first <= range2.last && range1.first >= range2.first
+        val overlapsWithRange2Larger = range2.first <= range1.last && range2.first >= range1.first
+        return overlapsWithRange1Larger || overlapsWithRange2Larger
+    }
+
     private fun reduceRanges(ranges: List<LongRange>): List<LongRange> {
         val reducedRanges = mutableListOf<LongRange>()
-        for ((range, next) in ranges.zipWithNext()) {
-            when {
-                range.first >= next.first && range.last <= next.last -> reducedRanges.add(next)
-                next.first >= range.first && next.last <= range.last -> reducedRanges.add(range)
-                range.first >= next.first && range.first <= next.last && range.last >= next.last -> reducedRanges.add(next.first..range.last)
-                next.first >= range.first && next.first <= range.last && next.last >= range.last -> reducedRanges.add(range.first..next.last)
-                else -> {
-                    reducedRanges.add(range)
-                    reducedRanges.add(next)
+        val combinedRanges = mutableListOf<LongRange>()
+        outer@ for (rangeI in ranges) {
+            if (rangeI in combinedRanges) continue
+            for (rangeK in ranges) {
+                if (rangeI === rangeK) continue
+                if (rangesOverlap(rangeI, rangeK)) {
+                    val newRange = min(rangeI.first, rangeK.first)..max(rangeI.last, rangeK.last)
+                    if (newRange !in reducedRanges) {
+                        combinedRanges.add(rangeI)
+                        combinedRanges.add(rangeK)
+                        reducedRanges.add(newRange)
+                        break
+                    }
                 }
             }
+            if (rangeI !in combinedRanges) reducedRanges.add(rangeI)
         }
-        return reducedRanges
+        return reducedRanges.toSet().toList()
     }
 }
