@@ -25,6 +25,10 @@ class IndexRow {
         return IndexRow(this.indices.subtract(other.indices.toSet()).toList())
     }
 
+    operator fun contains(x: Int): Boolean {
+        return x in this.indices
+    }
+
     fun splitIndices(): IndexRow {
         return IndexRow(this.indices.flatMap { i -> listOf(i-1,i+1) }.distinct())
     }
