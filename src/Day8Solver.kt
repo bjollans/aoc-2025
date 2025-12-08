@@ -12,7 +12,9 @@ class Day8Solver: Runnable {
         val sortedDistanceTuples = getSortedDistanceTuples(boxes)
         val boxToGroup = mutableMapOf<JunctionBox, JunctionBoxGroup>()
         val amountOfBoxes = if(isTest) 10 else 1000
-        for (i in 0 until amountOfBoxes) {
+        var i = -1
+        while (boxToGroup.values.distinct().size > 1 || boxToGroup.keys.size != boxes.size) {
+            i++
             val box1 = sortedDistanceTuples[i].first
             val box2 = sortedDistanceTuples[i].second
             val boxGroup1 = boxToGroup[box1]
@@ -45,7 +47,8 @@ class Day8Solver: Runnable {
         }
         val boxGroups = boxToGroup.values.toSet().toList()
         val sizes = boxGroups.map { it.size.toLong() }.sorted().reversed()
-        print(sizes[0]*sizes[1]*sizes[2])
+//        print(sizes[0]*sizes[1]*sizes[2])
+        print((sortedDistanceTuples[i].first.x*sortedDistanceTuples[i].second.x).toBigDecimal().toPlainString())
     }
 
     fun getSortedDistanceTuples(boxes: List<JunctionBox>): List<Pair<JunctionBox, JunctionBox>> {
